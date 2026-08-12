@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  // REPLACE THIS WITH YOUR DEPLOYED VERCEL BACKEND URL
-  apiUrl: 'https://inrand-backend.vercel.app/api'
+  apiUrl: 'https://backend-beta-topaz-70.vercel.app/api'
 };
