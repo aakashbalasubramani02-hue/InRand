@@ -17,7 +17,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:4200'],
+  origin: function (origin, callback) {
+    // Allow any origin for Vercel deployments (can restrict later)
+    callback(null, true);
+  },
   credentials: true
 }));
 app.use(express.json());
@@ -32,6 +35,12 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Only start the server locally if not in Vercel Serverless environment
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+// Export for Vercel Serverless
+module.exports = app;

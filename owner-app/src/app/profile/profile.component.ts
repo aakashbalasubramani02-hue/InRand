@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -64,7 +65,7 @@ export class ProfileComponent implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
-    this.http.get('http://localhost:5000/api/users/me').subscribe({
+    this.http.get(`${environment.apiUrl}/users/me`).subscribe({
       next: (data: any) => {
         this.user = {
           name: data.name || '',
@@ -83,7 +84,7 @@ export class ProfileComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     this.message = '';
-    this.http.put('http://localhost:5000/api/users/me', this.user).subscribe({
+    this.http.put(`${environment.apiUrl}/users/me`, this.user).subscribe({
       next: () => {
         this.loading = false;
         this.message = 'Profile updated successfully!';
